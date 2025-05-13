@@ -23,6 +23,7 @@ import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.thymeleaf.spring5.SpringTemplateEngine;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
@@ -129,6 +130,17 @@ public class ApplicationConfig implements WebMvcConfigurer, ApplicationContextAw
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasenames("validation-message");
         return messageSource;
+    }
+
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Static file: CSS
+        registry.addResourceHandler("/css/**")
+                .addResourceLocations("/css/");
+
+        // Uploaded images (từ ổ đĩa)
+        registry.addResourceHandler("/images/**")
+                .addResourceLocations("C:\\Users\\This  PC\\IdeaProjects\\web_learn_english\\src\\main\\resources\\static");
     }
 }
 
